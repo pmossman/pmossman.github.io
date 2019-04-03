@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Random Notes</title>
+
+    <!-- <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="images/favicon.png" /> -->
+    <link
+      href=" http://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <!-- <script src="js/scripts.js"></script> -->
+  </body>
+  <script>
+    function main() {
+      function createContainer() {
+        var container = document.createElement("div");
+        Object.assign(container.style, {
+          position: "relative",
+          width: "100vw",
+          height: "100vh",
+          minHeight: "1100px",
+          backgroundColor: "#262626",
+          color: "#EEE",
+          fontFamily: "Open Sans, sans-serif"
+        });
+        return container;
+      }
+
+      function createNoteDisplay() {
+        var noteDisplay = document.createElement("div");
+        Object.assign(noteDisplay.style, {
+          textAlign: "center",
+          fontSize: "400px",
+          position: "absolute",
+          margin: "auto",
+          top: 0,
+          left: 0,
+          right: 0
+        });
+        return noteDisplay;
+      }
+
+      function createBeatDisplay() {
+        var beatDisplay = document.createElement("div");
+        beatDisplay.id = "beatDisplay";
+        Object.assign(beatDisplay.style, {
+          textAlign: "center",
+          fontSize: "80px",
+          color: "#666",
+          position: "absolute",
+          margin: "auto",
+          top: "500px",
+          left: 0,
+          right: 0
+        });
+        return beatDisplay;
+      }
+
+      function createBpmEditorDisplay() {
+        var bpmContainer = document.createElement("div");
+        Object.assign(bpmContainer.style, {
+          textAlign: "center",
+          fontSize: "40px",
+          color: "#666",
+          position: "absolute",
+          margin: "auto auto 100px auto",
+          bottom: "10%",
+          left: 0,
+          right: 0,
+          width: "300px",
+          height: "100px"
+        });
+
+        var bpmDisplay = document.createElement("div");
+        bpmDisplay.innerHTML = "BPM: " + bpm;
+
+        var bpmInput = document.createElement("input");
+        bpmInput.setAttribute("name", "bpm");
+        Object.assign(bpmInput.style, {
+          textAlign: "center",
+          fontSize: "20px",
+          height: "70px",
+          backgroundColor: "#666",
+          border: "3px solid #888",
+          borderRadius: "5px",
+          color: "#EEE"
+        });
+
+        var bpmSubmit = document.createElement("input");
+        bpmSubmit.setAttribute("type", "submit");
+        bpmSubmit.setAttribute("value", "Change BPM");
+        Object.assign(bpmSubmit.style, {
+          textAlign: "center",
+          fontSize: "20px",
+          height: "50px",
+          backgroundColor: "#444",
+          color: "#EEE"
+        });
+
+        var bpmForm = document.createElement("form");
+        bpmForm.onsubmit = event => {
+          event.preventDefault();
+          var newBpm = event.target[0].value;
+          if (!isNaN(newBpm)) {
+            bpm = newBpm;
+            bpmDisplay.innerHTML = "BPM: " + bpm;
+            resetLoopInterval();
+          }
+        };
+        bpmForm.appendChild(bpmInput);
+        bpmForm.appendChild(bpmSubmit);
+
+        bpmContainer.appendChild(bpmDisplay);
+        bpmContainer.appendChild(bpmForm);
+        return bpmContainer;
+      }
+
+      function resetLoopInterval() {
+        clearInterval(window.randomNotesInterval);
+        window.randomNotesInterval = setInterval(nextTick, (60.0 / bpm) * 1000);
+      }
+
+      function nextTick() {
+        function setNewNote() {
+          var notes = ["A", "B", "C", "D", "E", "F", "G"];
+          var newNote = notes[Math.floor(Math.random() * notes.length)];
+          noteDisplay.innerHTML = newNote;
+        }
+
+        function setNextBeat() {
+          currentBeat = (currentBeat + 1) % 4;
+          beatDisplay.innerHTML = currentBeat == 0 ? 4 : currentBeat;
+        }
+
+        if (currentBeat == 0) {
+          setNewNote();
+        }
+        setNextBeat();
+      }
+
+      // wipe current body
+      document.body.innerHTML = "";
+
+      // globally accessible vars
+      var bpm = 80; // default
+      var currentBeat = 0;
+      var container = createContainer();
+      var noteDisplay = createNoteDisplay();
+      var beatDisplay = createBeatDisplay();
+      var bpmEditorDisplay = createBpmEditorDisplay();
+
+      container.appendChild(noteDisplay);
+      container.appendChild(beatDisplay);
+      container.appendChild(bpmEditorDisplay);
+
+      document.body.appendChild(container);
+      nextTick();
+      resetLoopInterval();
+    }
+    main();
+  </script>
+</html>
