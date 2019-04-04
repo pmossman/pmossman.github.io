@@ -122,9 +122,10 @@
           
           if (currentNote) {
             // don't allow the same note twice in a row
-            notes = notes.filter(function(note) { return note !== currentNote; }) 
+            notes = notes.filter(function(note) { return note !== currentNote; })
           }
           var newNote = notes[Math.floor(Math.random() * notes.length)];
+          currentNote = newNote;
           noteDisplay.innerHTML = newNote;
         }
 
