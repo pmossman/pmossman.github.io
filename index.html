@@ -119,15 +119,17 @@
       function nextTick() {
         function setNewNote() {
           var notes = ["A", "B", "C", "D", "E", "F", "G"];
+          
+          if (currentNote) {
+            // don't allow the same note twice in a row
+            notes = notes.filter(function(note) { return note !== currentNote; }) 
+          }
           var newNote = notes[Math.floor(Math.random() * notes.length)];
           noteDisplay.innerHTML = newNote;
         }
 
         function setNextBeat() {
           currentBeat = (currentBeat + 1) % 4;
-          if (currentBeat == 0) { 
-            noteDisplay.innerHTML = "..."; 
-          }
           beatDisplay.innerHTML = currentBeat == 0 ? 4 : currentBeat;
         }
 
@@ -146,6 +148,7 @@
       // globally accessible vars
       var bpm = 80; // default
       var currentBeat = 0;
+      var currentNote = null;
       var container = createContainer();
       var noteDisplay = createNoteDisplay();
       var beatDisplay = createBeatDisplay();
