@@ -24,13 +24,13 @@
       function createContainer() {
         var container = document.createElement("div");
         Object.assign(container.style, {
-          position: "relative",
           width: "100vw",
           height: "100vh",
-          minHeight: "1100px",
           backgroundColor: "#262626",
           color: "#EEE",
-          fontFamily: "Open Sans, sans-serif"
+          fontFamily: "Open Sans, sans-serif",
+          display: "flex",
+          flexDirection: "column"
         });
         return container;
       }
@@ -39,12 +39,7 @@
         var noteDisplay = document.createElement("div");
         Object.assign(noteDisplay.style, {
           textAlign: "center",
-          fontSize: "400px",
-          position: "absolute",
-          margin: "auto",
-          top: 0,
-          left: 0,
-          right: 0
+          fontSize: "400px"
         });
         return noteDisplay;
       }
@@ -55,12 +50,7 @@
         Object.assign(beatDisplay.style, {
           textAlign: "center",
           fontSize: "80px",
-          color: "#666",
-          position: "absolute",
-          margin: "auto",
-          top: "500px",
-          left: 0,
-          right: 0
+          color: "#666"
         });
         return beatDisplay;
       }
@@ -71,13 +61,8 @@
           textAlign: "center",
           fontSize: "40px",
           color: "#666",
-          position: "absolute",
-          margin: "auto auto 100px auto",
-          bottom: "10%",
-          left: 0,
-          right: 0,
-          width: "300px",
-          height: "100px"
+          marginBottom: "40px",
+          marginTop: "auto"
         });
 
         var bpmDisplay = document.createElement("div");
@@ -92,7 +77,9 @@
           backgroundColor: "#666",
           border: "3px solid #888",
           borderRadius: "5px",
-          color: "#EEE"
+          color: "#EEE".
+          display: "block",
+          margin: "0px auto"
         });
 
         var bpmSubmit = document.createElement("input");
