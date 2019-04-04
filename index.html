@@ -126,7 +126,7 @@
         function setNextBeat() {
           currentBeat = (currentBeat + 1) % 4;
           if (currentBeat == 0) { 
-            noteDisplay.innerHTML = " "; 
+            noteDisplay.innerHTML = "..."; 
           }
           beatDisplay.innerHTML = currentBeat == 0 ? 4 : currentBeat;
         }
